@@ -1,0 +1,33 @@
+stages:
+  - test
+
+variables:
+  # Optional: define Python version
+  PYTHON_VERSION: "3.11"
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+# Cache to speed up pip installs
+cache:
+  paths:
+    - .cache/pip
+
+before_script:
+  # Install dependencies
+  - python -V
+  - pip install --upgrade pip
+  - pip install -r requirements.txt
+
+# Run pytest for unit, integration, and performance tests
+pytest:
+  stage: test
+  script:
+    - echo "Running automated test suite..."
+    - pytest --maxfail=1 --disable-warnings --cov=services --cov-report=xml
+  artifacts:
+    paths:
+      - tests/reports/
+      - coverage.xml
+    reports:
+      junit: tests/reports/junit.xml
+  only:
+    - branches
