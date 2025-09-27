@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+PyJWT
+requests
+httpx
+pytest
+pytest-httpx
+pytest-asyncio
+pytest-cov
+pytest-xdist
+pydantic
+gunicorn
