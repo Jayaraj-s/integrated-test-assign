@@ -1,5 +1,5 @@
-from fastapi import FastAPI
-from services import auth_service, storage_service
+from fastapi import FastAPI, APIRouter
+from services import auth_service, storage_service, external_api
 import uvicorn
 
 app = FastAPI(title="Integrated Test Dev - Assignment")
@@ -9,6 +9,8 @@ app.include_router(auth_service.router, prefix="/auth", tags=["auth"])
 
 # Storage endpoints directly under /items, /items/{id}, etc.
 app.include_router(storage_service.router, tags=["storage"])
+
+app.include_router(external_api.router, tags=["external"])
 
 @app.get("/")
 def root():
